@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leamie S. Domingo — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+
+    /* =====================
+       1. TEXT STYLING
+    ===================== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #2C2C2A;
+      background: #fafaf8;
+    }
+
+    h1 { font-size: 32px; font-weight: 700; line-height: 1.2; color: #26215C; letter-spacing: -0.5px; }
+    h3 { font-size: 15px; font-weight: 600; color: #26215C; margin-bottom: 6px; }
+    p  { font-size: 15px; font-weight: 400; color: #444441; line-height: 1.75; }
+
+    a { color: #534AB7; text-decoration: none; font-weight: 500; transition: color 0.2s ease; }
+    a:hover { color: #3C3489; text-decoration: underline; }
+
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: #534AB7; margin-bottom: 1.25rem;
+    }
+
+    /* =====================
+       2. SPACING
+    ===================== */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.96);
+      border-bottom: 0.5px solid rgba(0,0,0,0.1);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem; height: 58px;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-logo { font-size: 15px; font-weight: 700; color: #534AB7; }
+
+    .nav-links { display: flex; gap: 1.75rem; }
+    .nav-links a {
+      font-size: 13px; font-weight: 500; color: #888780;
+      padding: 6px 0; border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s; text-decoration: none;
+    }
+    /* 4. HOVER */
+    .nav-links a:hover { color: #534AB7; border-bottom-color: #534AB7; }
+
+    section { padding: 5rem 2.5rem; max-width: 880px; margin: 0 auto; }
+
+    .divider { border: none; border-top: 0.5px solid rgba(0,0,0,0.1); margin: 0 2.5rem; }
+
+    /* =====================
+       HERO
+    ===================== */
+    .hero { display: flex; align-items: center; gap: 3rem; padding-top: 4rem; padding-bottom: 3rem; }
+
+    .avatar-wrapper {
+      position: relative; flex-shrink: 0;
+      width: 130px; height: 130px; cursor: pointer;
+    }
+
+    .avatar {
+      width: 130px; height: 130px;
+      border-radius: 50%;                 /* 3. ROUNDED - circle */
+      background: #EEEDFE;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px; font-weight: 700; color: #534AB7;
+      border: 3px solid #AFA9EC; overflow: hidden;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: none; }
+
+    /* 4. HOVER - avatar zoom */
+    .avatar-wrapper:hover .avatar { border-color: #534AB7; transform: scale(1.05); }
+
+    .upload-hint {
+      position: absolute; bottom: 4px; right: 0;
+      background: #534AB7; color: white;
+      font-size: 10px; font-weight: 600;
+      padding: 4px 9px; border-radius: 20px;    /* 3. ROUNDED - pill */
+      cursor: pointer; transition: background 0.2s; white-space: nowrap;
+    }
+    .upload-hint:hover { background: #3C3489; }   /* 4. HOVER */
+    #photo-input { display: none; }
+
+    .hero-text { flex: 1; }
+
+    .role {
+      display: inline-block; margin-top: 10px;
+      font-size: 13px; font-weight: 600;
+      background: #E1F5EE; color: #085041;
+      padding: 5px 14px; border-radius: 20px;    /* 3. ROUNDED - pill */
+    }
+
+    .hero-text p { margin-top: 1.1rem; }
+
+    .hero-cta { margin-top: 1.5rem; display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-block; padding: 10px 22px;  /* 2. SPACING */
+      border-radius: 10px;                         /* 3. ROUNDED */
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      border: 1.5px solid #534AB7; color: #534AB7; background: transparent;
+      transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+    }
+    /* 4. HOVER */
+    .btn:hover {
+      background: #534AB7; color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(83,74,183,0.22);
+      text-decoration: none;
+    }
+
+    .btn-outline { border-color: rgba(0,0,0,0.15); color: #444441; }
+    .btn-outline:hover { background: #f0efeb; color: #26215C; border-color: rgba(0,0,0,0.2); transform: translateY(-2px); box-shadow: none; }
+
+    /* =====================
+       SKILLS
+    ===================== */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+
+    .skill-card {
+      background: white; border: 0.5px solid rgba(0,0,0,0.1);
+      border-radius: 14px; padding: 1.1rem 1.25rem; /* 3. ROUNDED + 2. SPACING */
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    /* 4. HOVER */
+    .skill-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(83,74,183,0.12); border-color: #AFA9EC; }
+
+    .skill-name { font-size: 14px; font-weight: 600; color: #26215C; margin-bottom: 10px; }
+
+    .skill-bar-bg { height: 6px; background: #F1EFE8; border-radius: 6px; overflow: hidden; margin-bottom: 6px; }
+    .skill-bar { height: 100%; background: linear-gradient(90deg, #534AB7, #AFA9EC); border-radius: 6px; }
+    .skill-level { font-size: 11px; color: #888780; font-weight: 500; }
+
+    /* =====================
+       PROJECTS
+    ===================== */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+
+    .project-card {
+      background: white; border: 0.5px solid rgba(0,0,0,0.1);
+      border-radius: 16px; overflow: hidden;       /* 3. ROUNDED */
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      display: flex; flex-direction: column;
+    }
+    /* 4. HOVER */
+    .project-card:hover { transform: translateY(-5px); box-shadow: 0 10px 28px rgba(0,0,0,0.09); border-color: #AFA9EC; }
+
+    /* Project image area */
+    .project-img-area {
+      width: 100%; height: 160px;
+      background: #F1EFE8;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      position: relative; overflow: hidden; cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .project-img-area img {
+      width: 100%; height: 100%; object-fit: cover;
+      position: absolute; top: 0; left: 0;
+      display: none; border-radius: 0;
+    }
+
+    .project-img-placeholder {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      z-index: 1;
+    }
+
+    .project-img-placeholder .img-icon { font-size: 28px; opacity: 0.4; }
+
+    .project-img-placeholder span {
+      font-size: 11px; font-weight: 600; color: #888780;
+      letter-spacing: 0.5px;
+    }
+
+    /* 4. HOVER - image upload area */
+    .project-img-area:hover { background: #EEEDFE; }
+    .project-img-area:hover .project-img-placeholder .img-icon { opacity: 0.7; }
+    .project-img-area:hover .project-img-placeholder span { color: #534AB7; }
+
+    .project-img-area .img-overlay {
+      position: absolute; inset: 0; background: rgba(83,74,183,0.08);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.2s; z-index: 2;
+      font-size: 12px; font-weight: 600; color: #534AB7;
+    }
+    .project-img-area:hover .img-overlay { opacity: 1; }
+
+    .project-img-area input[type="file"] { display: none; }
+
+    .project-body { padding: 1.25rem; flex: 1; }  /* 2. SPACING */
+
+    .proj-tag {
+      font-size: 11px; font-weight: 600; color: #085041;
+      background: #E1F5EE; padding: 4px 12px;      /* 2. SPACING */
+      border-radius: 20px;                          /* 3. ROUNDED - pill */
+      display: inline-block; margin-bottom: 10px;
+    }
+
+    /* =====================
+       EDUCATION
+    ===================== */
+    .edu-card {
+      background: white; border: 0.5px solid rgba(0,0,0,0.1);
+      border-radius: 16px; padding: 1.5rem 1.75rem; /* 3. ROUNDED + 2. SPACING */
+      display: flex; gap: 1.25rem; align-items: flex-start;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    /* 4. HOVER */
+    .edu-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(83,74,183,0.1); }
+
+    .edu-icon {
+      width: 48px; height: 48px; border-radius: 12px; /* 3. ROUNDED */
+      flex-shrink: 0; background: #EEEDFE;
+      display: flex; align-items: center; justify-content: center; font-size: 22px;
+    }
+
+    .edu-school { font-size: 16px; font-weight: 700; color: #26215C; }
+    .edu-course { font-size: 13px; color: #888780; margin-top: 4px; }
+    .edu-year {
+      margin-top: 10px; display: inline-block;
+      font-size: 11px; font-weight: 600; color: #534AB7;
+      background: #EEEDFE; padding: 4px 12px; border-radius: 20px; /* 3. ROUNDED */
+    }
+
+    /* =====================
+       CONTACT
+    ===================== */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+
+    .contact-card {
+      background: white; border: 0.5px solid rgba(0,0,0,0.1);
+      border-radius: 14px; padding: 1.1rem 1.25rem; /* 3. ROUNDED + 2. SPACING */
+      display: flex; align-items: center; gap: 14px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    /* 4. HOVER */
+    .contact-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(83,74,183,0.1); border-color: #AFA9EC; }
+
+    .contact-icon {
+      width: 40px; height: 40px; border-radius: 10px; /* 3. ROUNDED */
+      flex-shrink: 0; background: #EEEDFE;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; transition: background 0.25s ease;
+    }
+    /* 4. HOVER - icon fill */
+    .contact-card:hover .contact-icon { background: #534AB7; }
+
+    .contact-label { font-size: 11px; color: #888780; font-weight: 500; }
+    .contact-val { font-size: 13px; font-weight: 600; color: #26215C; margin-top: 2px; word-break: break-all; }
+    .contact-val a { color: #534AB7; }
+
+    /* =====================
+       FOOTER
+    ===================== */
+    footer {
+      text-align: center; padding: 2.5rem;
+      font-size: 12px; color: #888780;
+      border-top: 0.5px solid rgba(0,0,0,0.1);
+    }
+
+    /* =====================
+       RESPONSIVE
+    ===================== */
+    @media (max-width: 600px) {
+      .hero { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .hero-cta { justify-content: center; }
+      nav { padding: 0 1.25rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 12px; }
+      section { padding: 3rem 1.25rem; }
+      .divider { margin: 0 1.25rem; }
+      h1 { font-size: 26px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">Leamie S. Domingo</span>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="hero">
+      <div class="avatar-wrapper" onclick="document.getElementById('photo-input').click()" title="Click to upload your photo">
+        <div class="avatar" id="avatar-circle">
+          <span id="avatar-initials">LD</span>
+          <img id="avatar-img" src="" alt="Profile photo" />
+        </div>
+        <span class="upload-hint">📷 Add Photo</span>
+        <input type="file" id="photo-input" accept="image/*" onchange="handleProfilePhoto(event)" />
+      </div>
+
+      <div class="hero-text">
+        <h1>Leamie S. Domingo</h1>
+        <span class="role">Information System Student</span>
+        <p>
+          I'm a passionate Information System student at Caraga State University,
+          driven by curiosity and a love for technology. I enjoy solving problems
+          through thoughtful design and clean, functional systems. Currently honing
+          my skills in web development and database management as I work toward
+          building impactful digital solutions.
+        </p>
+        <div class="hero-cta">
+          <a class="btn" href="#contact">Get in touch</a>
+          <a class="btn btn-outline" href="https://github.com/leamiedomingo" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-label">Skills</p>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-name">HTML &amp; CSS</div>
+        <div class="skill-bar-bg"><div class="skill-bar" style="width:80%;"></div></div>
+        <div class="skill-level">Intermediate</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">JavaScript</div>
+        <div class="skill-bar-bg"><div class="skill-bar" style="width:60%;"></div></div>
+        <div class="skill-level">Beginner – Intermediate</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">Database Management</div>
+        <div class="skill-bar-bg"><div class="skill-bar" style="width:70%;"></div></div>
+        <div class="skill-level">Intermediate</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label">Projects</p>
+    <div class="projects-grid">
+
+      <!-- Project 1 -->
+      <div class="project-card">
+        <div class="project-img-area" onclick="triggerProjectPhoto('proj1-input')" title="Click to add a project photo">
+          <img id="proj1-img" src="" alt="Project photo" />
+          <div class="project-img-placeholder" id="proj1-placeholder">
+            <div class="img-icon">🖼️</div>
+            <span>Add Project Photo</span>
+          </div>
+          <div class="img-overlay">📷 Change Photo</div>
+          <input type="file" id="proj1-input" accept="image/*" onchange="handleProjectPhoto(event,'proj1-img','proj1-placeholder')" />
+        </div>
+        <div class="project-body">
+          <span class="proj-tag">Web App</span>
+          <h3>Student Information System</h3>
+          <p>A web-based system for managing student records, enrollment, and academic performance for a university setting.</p>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card">
+        <div class="project-img-area" onclick="triggerProjectPhoto('proj2-input')" title="Click to add a project photo">
+          <img id="proj2-img" src="" alt="Project photo" />
+          <div class="project-img-placeholder" id="proj2-placeholder">
+            <div class="img-icon">🖼️</div>
+            <span>Add Project Photo</span>
+          </div>
+          <div class="img-overlay">📷 Change Photo</div>
+          <input type="file" id="proj2-input" accept="image/*" onchange="handleProjectPhoto(event,'proj2-img','proj2-placeholder')" />
+        </div>
+        <div class="project-body">
+          <span class="proj-tag">Database</span>
+          <h3>Inventory Management DB</h3>
+          <p>Designed a relational database system for tracking product inventory, suppliers, and stock transactions.</p>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card">
+        <div class="project-img-area" onclick="triggerProjectPhoto('proj3-input')" title="Click to add a project photo">
+          <img id="proj3-img" src="" alt="Project photo" />
+          <div class="project-img-placeholder" id="proj3-placeholder">
+            <div class="img-icon">🖼️</div>
+            <span>Add Project Photo</span>
+          </div>
+          <div class="img-overlay">📷 Change Photo</div>
+          <input type="file" id="proj3-input" accept="image/*" onchange="handleProjectPhoto(event,'proj3-img','proj3-placeholder')" />
+        </div>
+        <div class="project-body">
+          <span class="proj-tag">Frontend</span>
+          <h3>Personal Portfolio Website</h3>
+          <p>A clean and responsive portfolio website built with HTML, CSS, and JavaScript to showcase skills and projects.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <p class="section-label">Education</p>
+    <div class="edu-card">
+      <div class="edu-icon">🎓</div>
+      <div>
+        <div class="edu-school">Caraga State University</div>
+        <div class="edu-course">Bachelor of Science in Information System</div>
+        <span class="edu-year">3rd Year — Present</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">Contact</p>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-val"><a href="mailto:leamiedomingo@gmail.com">leamiedomingo@gmail.com</a></div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📱</div>
+        <div>
+          <div class="contact-label">Phone</div>
+          <div class="contact-val">09276332937</div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">💻</div>
+        <div>
+          <div class="contact-label">GitHub</div>
+          <div class="contact-val"><a href="https://github.com/leamiedomingo" target="_blank">leamiedomingo</a></div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📘</div>
+        <div>
+          <div class="contact-label">Facebook</div>
+          <div class="contact-val"><a href="https://www.facebook.com/JustLeamie/" target="_blank">JustLeamie</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Leamie S. Domingo &middot; Information System Student &middot; Caraga State University
+  </footer>
+
+  <script>
+    /* Profile photo */
+    function handleProfilePhoto(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.getElementById('avatar-img');
+        const initials = document.getElementById('avatar-initials');
+        img.src = e.target.result;
+        img.style.display = 'block';
+        initials.style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    /* Project photo - trigger file input */
+    function triggerProjectPhoto(inputId) {
+      document.getElementById(inputId).click();
+    }
+
+    /* Project photo - handle upload */
+    function handleProjectPhoto(event, imgId, placeholderId) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.getElementById(imgId);
+        const placeholder = document.getElementById(placeholderId);
+        img.src = e.target.result;
+        img.style.display = 'block';
+        placeholder.style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+    }
+  </script>
+
+</body>
+</html>
