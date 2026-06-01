@@ -1,517 +1,407 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Leamie S. Domingo — Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-
-    /* =====================
-       1. TEXT STYLING
-    ===================== */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-      font-size: 16px;
-      line-height: 1.7;
-      color: #2C2C2A;
-      background: #fafaf8;
-    }
-
-    h1 { font-size: 32px; font-weight: 700; line-height: 1.2; color: #26215C; letter-spacing: -0.5px; }
-    h3 { font-size: 15px; font-weight: 600; color: #26215C; margin-bottom: 6px; }
-    p  { font-size: 15px; font-weight: 400; color: #444441; line-height: 1.75; }
-
-    a { color: #534AB7; text-decoration: none; font-weight: 500; transition: color 0.2s ease; }
-    a:hover { color: #3C3489; text-decoration: underline; }
-
-    .section-label {
-      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
-      text-transform: uppercase; color: #534AB7; margin-bottom: 1.25rem;
-    }
-
-    /* =====================
-       2. SPACING
-    ===================== */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0.96);
-      border-bottom: 0.5px solid rgba(0,0,0,0.1);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2.5rem; height: 58px;
-      backdrop-filter: blur(10px);
-    }
-
-    .nav-logo { font-size: 15px; font-weight: 700; color: #534AB7; }
-
-    .nav-links { display: flex; gap: 1.75rem; }
-    .nav-links a {
-      font-size: 13px; font-weight: 500; color: #888780;
-      padding: 6px 0; border-bottom: 2px solid transparent;
-      transition: color 0.2s, border-color 0.2s; text-decoration: none;
-    }
-    /* 4. HOVER */
-    .nav-links a:hover { color: #534AB7; border-bottom-color: #534AB7; }
-
-    section { padding: 5rem 2.5rem; max-width: 880px; margin: 0 auto; }
-
-    .divider { border: none; border-top: 0.5px solid rgba(0,0,0,0.1); margin: 0 2.5rem; }
-
-    /* =====================
-       HERO
-    ===================== */
-    .hero { display: flex; align-items: center; gap: 3rem; padding-top: 4rem; padding-bottom: 3rem; }
-
-    .avatar-wrapper {
-      position: relative; flex-shrink: 0;
-      width: 130px; height: 130px; cursor: pointer;
-    }
-
-    .avatar {
-      width: 130px; height: 130px;
-      border-radius: 50%;                 /* 3. ROUNDED - circle */
-      background: #EEEDFE;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 36px; font-weight: 700; color: #534AB7;
-      border: 3px solid #AFA9EC; overflow: hidden;
-      transition: border-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: none; }
-
-    /* 4. HOVER - avatar zoom */
-    .avatar-wrapper:hover .avatar { border-color: #534AB7; transform: scale(1.05); }
-
-    .upload-hint {
-      position: absolute; bottom: 4px; right: 0;
-      background: #534AB7; color: white;
-      font-size: 10px; font-weight: 600;
-      padding: 4px 9px; border-radius: 20px;    /* 3. ROUNDED - pill */
-      cursor: pointer; transition: background 0.2s; white-space: nowrap;
-    }
-    .upload-hint:hover { background: #3C3489; }   /* 4. HOVER */
-    #photo-input { display: none; }
-
-    .hero-text { flex: 1; }
-
-    .role {
-      display: inline-block; margin-top: 10px;
-      font-size: 13px; font-weight: 600;
-      background: #E1F5EE; color: #085041;
-      padding: 5px 14px; border-radius: 20px;    /* 3. ROUNDED - pill */
-    }
-
-    .hero-text p { margin-top: 1.1rem; }
-
-    .hero-cta { margin-top: 1.5rem; display: flex; gap: 12px; flex-wrap: wrap; }
-
-    .btn {
-      display: inline-block; padding: 10px 22px;  /* 2. SPACING */
-      border-radius: 10px;                         /* 3. ROUNDED */
-      font-size: 13px; font-weight: 600; cursor: pointer;
-      border: 1.5px solid #534AB7; color: #534AB7; background: transparent;
-      transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
-    }
-    /* 4. HOVER */
-    .btn:hover {
-      background: #534AB7; color: white;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(83,74,183,0.22);
-      text-decoration: none;
-    }
-
-    .btn-outline { border-color: rgba(0,0,0,0.15); color: #444441; }
-    .btn-outline:hover { background: #f0efeb; color: #26215C; border-color: rgba(0,0,0,0.2); transform: translateY(-2px); box-shadow: none; }
-
-    /* =====================
-       SKILLS
-    ===================== */
-    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
-
-    .skill-card {
-      background: white; border: 0.5px solid rgba(0,0,0,0.1);
-      border-radius: 14px; padding: 1.1rem 1.25rem; /* 3. ROUNDED + 2. SPACING */
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-    }
-    /* 4. HOVER */
-    .skill-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(83,74,183,0.12); border-color: #AFA9EC; }
-
-    .skill-name { font-size: 14px; font-weight: 600; color: #26215C; margin-bottom: 10px; }
-
-    .skill-bar-bg { height: 6px; background: #F1EFE8; border-radius: 6px; overflow: hidden; margin-bottom: 6px; }
-    .skill-bar { height: 100%; background: linear-gradient(90deg, #534AB7, #AFA9EC); border-radius: 6px; }
-    .skill-level { font-size: 11px; color: #888780; font-weight: 500; }
-
-    /* =====================
-       PROJECTS
-    ===================== */
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-
-    .project-card {
-      background: white; border: 0.5px solid rgba(0,0,0,0.1);
-      border-radius: 16px; overflow: hidden;       /* 3. ROUNDED */
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-      display: flex; flex-direction: column;
-    }
-    /* 4. HOVER */
-    .project-card:hover { transform: translateY(-5px); box-shadow: 0 10px 28px rgba(0,0,0,0.09); border-color: #AFA9EC; }
-
-    /* Project image area */
-    .project-img-area {
-      width: 100%; height: 160px;
-      background: #F1EFE8;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      position: relative; overflow: hidden; cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .project-img-area img {
-      width: 100%; height: 100%; object-fit: cover;
-      position: absolute; top: 0; left: 0;
-      display: none; border-radius: 0;
-    }
-
-    .project-img-placeholder {
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-      z-index: 1;
-    }
-
-    .project-img-placeholder .img-icon { font-size: 28px; opacity: 0.4; }
-
-    .project-img-placeholder span {
-      font-size: 11px; font-weight: 600; color: #888780;
-      letter-spacing: 0.5px;
-    }
-
-    /* 4. HOVER - image upload area */
-    .project-img-area:hover { background: #EEEDFE; }
-    .project-img-area:hover .project-img-placeholder .img-icon { opacity: 0.7; }
-    .project-img-area:hover .project-img-placeholder span { color: #534AB7; }
-
-    .project-img-area .img-overlay {
-      position: absolute; inset: 0; background: rgba(83,74,183,0.08);
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity 0.2s; z-index: 2;
-      font-size: 12px; font-weight: 600; color: #534AB7;
-    }
-    .project-img-area:hover .img-overlay { opacity: 1; }
-
-    .project-img-area input[type="file"] { display: none; }
-
-    .project-body { padding: 1.25rem; flex: 1; }  /* 2. SPACING */
-
-    .proj-tag {
-      font-size: 11px; font-weight: 600; color: #085041;
-      background: #E1F5EE; padding: 4px 12px;      /* 2. SPACING */
-      border-radius: 20px;                          /* 3. ROUNDED - pill */
-      display: inline-block; margin-bottom: 10px;
-    }
-
-    /* =====================
-       EDUCATION
-    ===================== */
-    .edu-card {
-      background: white; border: 0.5px solid rgba(0,0,0,0.1);
-      border-radius: 16px; padding: 1.5rem 1.75rem; /* 3. ROUNDED + 2. SPACING */
-      display: flex; gap: 1.25rem; align-items: flex-start;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    /* 4. HOVER */
-    .edu-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(83,74,183,0.1); }
-
-    .edu-icon {
-      width: 48px; height: 48px; border-radius: 12px; /* 3. ROUNDED */
-      flex-shrink: 0; background: #EEEDFE;
-      display: flex; align-items: center; justify-content: center; font-size: 22px;
-    }
-
-    .edu-school { font-size: 16px; font-weight: 700; color: #26215C; }
-    .edu-course { font-size: 13px; color: #888780; margin-top: 4px; }
-    .edu-year {
-      margin-top: 10px; display: inline-block;
-      font-size: 11px; font-weight: 600; color: #534AB7;
-      background: #EEEDFE; padding: 4px 12px; border-radius: 20px; /* 3. ROUNDED */
-    }
-
-    /* =====================
-       CONTACT
-    ===================== */
-    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
-
-    .contact-card {
-      background: white; border: 0.5px solid rgba(0,0,0,0.1);
-      border-radius: 14px; padding: 1.1rem 1.25rem; /* 3. ROUNDED + 2. SPACING */
-      display: flex; align-items: center; gap: 14px;
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-    }
-    /* 4. HOVER */
-    .contact-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(83,74,183,0.1); border-color: #AFA9EC; }
-
-    .contact-icon {
-      width: 40px; height: 40px; border-radius: 10px; /* 3. ROUNDED */
-      flex-shrink: 0; background: #EEEDFE;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; transition: background 0.25s ease;
-    }
-    /* 4. HOVER - icon fill */
-    .contact-card:hover .contact-icon { background: #534AB7; }
-
-    .contact-label { font-size: 11px; color: #888780; font-weight: 500; }
-    .contact-val { font-size: 13px; font-weight: 600; color: #26215C; margin-top: 2px; word-break: break-all; }
-    .contact-val a { color: #534AB7; }
-
-    /* =====================
-       FOOTER
-    ===================== */
-    footer {
-      text-align: center; padding: 2.5rem;
-      font-size: 12px; color: #888780;
-      border-top: 0.5px solid rgba(0,0,0,0.1);
-    }
-
-    /* =====================
-       RESPONSIVE
-    ===================== */
-    @media (max-width: 600px) {
-      .hero { flex-direction: column; gap: 1.5rem; text-align: center; }
-      .hero-cta { justify-content: center; }
-      nav { padding: 0 1.25rem; }
-      .nav-links { gap: 1rem; }
-      .nav-links a { font-size: 12px; }
-      section { padding: 3rem 1.25rem; }
-      .divider { margin: 0 1.25rem; }
-      h1 { font-size: 26px; }
-    }
-
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Leamie S. Domingo — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F7F5F2;--white:#FFFFFF;--ink:#18171A;--ink2:#4C4A52;--ink3:#9A9AA4;
+  --gold:#C09A5B;--gold-bg:#F5ECD9;--border:rgba(24,23,26,0.10);
+  --border2:rgba(24,23,26,0.06);--radius:12px;--shadow:0 2px 20px rgba(0,0,0,0.07);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;background:rgba(247,245,242,0.90);backdrop-filter:blur(14px);border-bottom:0.5px solid var(--border)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:18px;color:var(--ink);text-decoration:none}
+.nav-links{list-style:none;display:flex;gap:28px}
+.nav-links a{text-decoration:none;font-size:12.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--ink2);transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+.hero{min-height:100vh;display:flex;align-items:center;padding:100px 5vw 80px;gap:80px}
+.hero-left{flex:1;display:flex;flex-direction:column;gap:24px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);background:var(--gold-bg);padding:6px 14px;border-radius:40px;width:fit-content}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(44px,6vw,72px);font-weight:400;line-height:1.08;color:var(--ink)}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:16px;color:var(--ink2);max-width:480px;line-height:1.8}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:12px 26px;border-radius:6px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;letter-spacing:.04em;text-decoration:none;cursor:pointer;border:none;transition:all .2s}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:#2e2d33;transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--border);border-radius:6px}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px)}
+.hero-right{flex-shrink:0}
+.photo-wrapper{position:relative;width:280px;height:280px}
+.photo-ring{width:280px;height:280px;border-radius:50%;border:2px solid var(--gold);padding:5px;background:transparent}
+.photo-circle{width:100%;height:100%;border-radius:50%;overflow:hidden;background:var(--gold-bg);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
+.photo-circle img{width:100%;height:100%;object-fit:cover;display:none}
+.photo-circle img.visible{display:block}
+.photo-placeholder{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--ink3);pointer-events:none}
+.photo-placeholder svg{width:40px;height:40px;stroke:var(--gold);stroke-width:1.5;fill:none}
+.photo-placeholder span{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.photo-overlay{position:absolute;inset:5px;border-radius:50%;background:rgba(24,23,26,0.45);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;cursor:pointer}
+.photo-overlay svg{width:28px;height:28px;stroke:#fff;stroke-width:1.5;fill:none}
+.photo-circle:hover .photo-overlay{opacity:1}
+.photo-badge{position:absolute;bottom:10px;right:10px;background:var(--gold);color:#fff;font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;letter-spacing:.04em}
+#photo-input{display:none}
+section{padding:90px 5vw}
+.section-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.section-eyebrow::before{content:'';width:28px;height:1.5px;background:var(--gold)}
+h2{font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,42px);font-weight:400;line-height:1.2;color:var(--ink);margin-bottom:48px}
+h2 em{font-style:italic}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.about-text p{color:var(--ink2);font-size:15.5px;line-height:1.85;margin-bottom:18px}
+.details-list{display:flex;flex-direction:column}
+.detail-row{display:flex;flex-direction:column;gap:3px;padding:16px 0;border-bottom:.5px solid var(--border)}
+.detail-row:first-child{border-top:.5px solid var(--border)}
+.detail-k{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+.detail-v{font-size:14px;font-weight:500;color:var(--ink2)}
+.skills-bg{background:var(--white);border-top:.5px solid var(--border);border-bottom:.5px solid var(--border)}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+.skill-card{background:var(--bg);border:.5px solid var(--border);border-radius:var(--radius);padding:24px 20px;display:flex;flex-direction:column;gap:10px;transition:border-color .2s,transform .2s}
+.skill-card:hover{border-color:rgba(192,154,91,.4);transform:translateY(-2px)}
+.skill-icon{font-size:24px}
+.skill-name{font-size:13.5px;font-weight:600;color:var(--ink)}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+.tag{font-size:11px;padding:3px 9px;background:var(--gold-bg);color:var(--gold);border-radius:3px;font-weight:500}
+.gallery-controls{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:16px}
+.gallery-filters{display:flex;gap:8px;flex-wrap:wrap}
+.filter-btn{font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;padding:7px 18px;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--ink2);cursor:pointer;transition:all .2s;letter-spacing:.03em}
+.filter-btn.active,.filter-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.add-project-btn{display:flex;align-items:center;gap:6px;font-family:'Outfit',sans-serif;font-size:12.5px;font-weight:600;padding:8px 20px;border-radius:6px;border:1.5px dashed var(--gold);background:transparent;color:var(--gold);cursor:pointer;transition:all .2s;letter-spacing:.04em}
+.add-project-btn:hover{background:var(--gold-bg)}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.project-card{background:var(--white);border:.5px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s;box-shadow:0 1px 8px rgba(0,0,0,0.04)}
+.project-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.card-img{width:100%;height:180px;object-fit:cover;display:block}
+.card-img-placeholder{width:100%;height:180px;background:linear-gradient(135deg,var(--gold-bg) 0%,#EDE3D0 100%);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:48px;color:var(--gold)}
+.card-body{padding:22px 20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card-cat{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.card-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:400;color:var(--ink);line-height:1.3}
+.card-desc{font-size:13.5px;color:var(--ink2);line-height:1.7;flex:1}
+.card-tech{display:flex;flex-wrap:wrap;gap:5px}
+.tech-tag{font-size:10.5px;padding:2px 9px;border:.5px solid var(--border);border-radius:3px;color:var(--ink3)}
+.card-footer{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-top:.5px solid var(--border2)}
+.card-link{font-size:12px;font-weight:600;color:var(--gold);text-decoration:none;letter-spacing:.04em;display:flex;align-items:center;gap:5px;transition:gap .2s}
+.card-link:hover{gap:9px}
+.card-actions{display:flex;gap:8px}
+.icon-btn{width:30px;height:30px;border-radius:6px;border:.5px solid var(--border);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;color:var(--ink3)}
+.icon-btn:hover{border-color:var(--ink);color:var(--ink)}
+.icon-btn.del:hover{border-color:#e04040;color:#e04040}
+.icon-btn svg{width:15px;height:15px;stroke:currentColor;stroke-width:1.8;fill:none}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--white);border-radius:16px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;padding:36px;display:flex;flex-direction:column;gap:20px;transform:translateY(20px);transition:transform .25s}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-header{display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-family:'Playfair Display',serif;font-size:22px}
+.modal-close{width:32px;height:32px;border-radius:50%;border:.5px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--ink2);transition:all .2s}
+.modal-close:hover{background:var(--bg)}
+label{font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);display:flex;flex-direction:column;gap:6px}
+input[type=text],input[type=url],textarea,select{font-family:'Outfit',sans-serif;font-size:14px;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);color:var(--ink);outline:none;transition:border-color .2s;width:100%}
+input:focus,textarea:focus,select:focus{border-color:var(--gold)}
+textarea{resize:vertical;min-height:80px}
+.modal-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.img-upload-area{border:2px dashed var(--border);border-radius:8px;padding:20px;text-align:center;cursor:pointer;transition:border-color .2s;background:var(--bg);min-height:80px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.img-upload-area:hover{border-color:var(--gold)}
+.img-upload-area span{font-size:13px;color:var(--ink3)}
+.img-preview{width:100%;height:120px;object-fit:cover;border-radius:6px;display:none}
+.img-preview.visible{display:block}
+#proj-img-input{display:none}
+.modal-btns{display:flex;justify-content:flex-end;gap:10px;margin-top:4px}
+.empty-gallery{grid-column:1/-1;text-align:center;padding:64px 20px;color:var(--ink3)}
+.empty-gallery svg{width:48px;height:48px;stroke:var(--border);stroke-width:1;fill:none;display:block;margin:0 auto 12px}
+.empty-gallery p{font-size:14px}
+.contact-section{background:var(--ink);color:#fff}
+.contact-section .section-eyebrow{color:rgba(192,154,91,.85)}
+.contact-section .section-eyebrow::before{background:rgba(192,154,91,.85)}
+.contact-section h2{color:#fff}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.contact-text p{color:rgba(255,255,255,.55);font-size:15.5px;line-height:1.85;margin-bottom:16px}
+.contact-links{display:flex;flex-direction:column}
+.contact-row{display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-bottom:.5px solid rgba(255,255,255,.08);text-decoration:none;transition:padding-left .2s}
+.contact-row:first-child{border-top:.5px solid rgba(255,255,255,.08)}
+.contact-row:hover{padding-left:8px}
+.contact-k{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.contact-v{font-size:14px;font-weight:500;color:rgba(255,255,255,.75)}
+footer{background:var(--ink);border-top:.5px solid rgba(255,255,255,.06);padding:24px 5vw;display:flex;align-items:center;justify-content:space-between}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.25)}
+.footer-sig{font-family:'Playfair Display',serif;font-size:15px;font-style:italic;color:rgba(255,255,255,.3)}
+.fade-up{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+.fade-up.in{opacity:1;transform:translateY(0)}
+@media(max-width:900px){.hero{flex-direction:column;text-align:center;gap:48px}.hero-sub{max-width:100%;margin:0 auto}.hero-btns{justify-content:center}.hero-badge{margin:0 auto}.about-grid,.contact-grid{grid-template-columns:1fr;gap:40px}}
+@media(max-width:600px){.nav-links{display:none}.modal-row{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <span class="nav-logo">Leamie S. Domingo</span>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#education">Education</a>
-      <a href="#contact">Contact</a>
+<nav>
+  <a href="#home" class="nav-logo">Leamie Domingo</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-badge">BS Information Systems · CSU</div>
+    <h1>Leamie S.<br/><em>Domingo</em></h1>
+    <p class="hero-sub">Information Systems student at Caraga State University, passionate about database design, systems analysis, and responsible AI in higher education.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-dark">View Projects →</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
     </div>
-  </nav>
-
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="hero">
-      <div class="avatar-wrapper" onclick="document.getElementById('photo-input').click()" title="Click to upload your photo">
-        <div class="avatar" id="avatar-circle">
-          <span id="avatar-initials">LD</span>
-          <img id="avatar-img" src="" alt="Profile photo" />
-        </div>
-        <span class="upload-hint">📷 Add Photo</span>
-        <input type="file" id="photo-input" accept="image/*" onchange="handleProfilePhoto(event)" />
-      </div>
-
-      <div class="hero-text">
-        <h1>Leamie S. Domingo</h1>
-        <span class="role">Information System Student</span>
-        <p>
-          I'm a passionate Information System student at Caraga State University,
-          driven by curiosity and a love for technology. I enjoy solving problems
-          through thoughtful design and clean, functional systems. Currently honing
-          my skills in web development and database management as I work toward
-          building impactful digital solutions.
-        </p>
-        <div class="hero-cta">
-          <a class="btn" href="#contact">Get in touch</a>
-          <a class="btn btn-outline" href="https://github.com/leamiedomingo" target="_blank">GitHub</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- SKILLS -->
-  <section id="skills">
-    <p class="section-label">Skills</p>
-    <div class="skills-grid">
-      <div class="skill-card">
-        <div class="skill-name">HTML &amp; CSS</div>
-        <div class="skill-bar-bg"><div class="skill-bar" style="width:80%;"></div></div>
-        <div class="skill-level">Intermediate</div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-name">JavaScript</div>
-        <div class="skill-bar-bg"><div class="skill-bar" style="width:60%;"></div></div>
-        <div class="skill-level">Beginner – Intermediate</div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-name">Database Management</div>
-        <div class="skill-bar-bg"><div class="skill-bar" style="width:70%;"></div></div>
-        <div class="skill-level">Intermediate</div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- PROJECTS -->
-  <section id="projects">
-    <p class="section-label">Projects</p>
-    <div class="projects-grid">
-
-      <!-- Project 1 -->
-      <div class="project-card">
-        <div class="project-img-area" onclick="triggerProjectPhoto('proj1-input')" title="Click to add a project photo">
-          <img id="proj1-img" src="" alt="Project photo" />
-          <div class="project-img-placeholder" id="proj1-placeholder">
-            <div class="img-icon">🖼️</div>
-            <span>Add Project Photo</span>
+  </div>
+  <div class="hero-right">
+    <div class="photo-wrapper">
+      <div class="photo-ring">
+        <div class="photo-circle" id="photo-circle" onclick="document.getElementById('photo-input').click()">
+          <div class="photo-placeholder" id="photo-placeholder">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span>Upload Photo</span>
           </div>
-          <div class="img-overlay">📷 Change Photo</div>
-          <input type="file" id="proj1-input" accept="image/*" onchange="handleProjectPhoto(event,'proj1-img','proj1-placeholder')" />
-        </div>
-        <div class="project-body">
-          <span class="proj-tag">Web App</span>
-          <h3>Student Information System</h3>
-          <p>A web-based system for managing student records, enrollment, and academic performance for a university setting.</p>
-        </div>
-      </div>
-
-      <!-- Project 2 -->
-      <div class="project-card">
-        <div class="project-img-area" onclick="triggerProjectPhoto('proj2-input')" title="Click to add a project photo">
-          <img id="proj2-img" src="" alt="Project photo" />
-          <div class="project-img-placeholder" id="proj2-placeholder">
-            <div class="img-icon">🖼️</div>
-            <span>Add Project Photo</span>
+          <img id="profile-img" alt="Leamie S. Domingo"/>
+          <div class="photo-overlay">
+            <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
           </div>
-          <div class="img-overlay">📷 Change Photo</div>
-          <input type="file" id="proj2-input" accept="image/*" onchange="handleProjectPhoto(event,'proj2-img','proj2-placeholder')" />
-        </div>
-        <div class="project-body">
-          <span class="proj-tag">Database</span>
-          <h3>Inventory Management DB</h3>
-          <p>Designed a relational database system for tracking product inventory, suppliers, and stock transactions.</p>
         </div>
       </div>
-
-      <!-- Project 3 -->
-      <div class="project-card">
-        <div class="project-img-area" onclick="triggerProjectPhoto('proj3-input')" title="Click to add a project photo">
-          <img id="proj3-img" src="" alt="Project photo" />
-          <div class="project-img-placeholder" id="proj3-placeholder">
-            <div class="img-icon">🖼️</div>
-            <span>Add Project Photo</span>
-          </div>
-          <div class="img-overlay">📷 Change Photo</div>
-          <input type="file" id="proj3-input" accept="image/*" onchange="handleProjectPhoto(event,'proj3-img','proj3-placeholder')" />
-        </div>
-        <div class="project-body">
-          <span class="proj-tag">Frontend</span>
-          <h3>Personal Portfolio Website</h3>
-          <p>A clean and responsive portfolio website built with HTML, CSS, and JavaScript to showcase skills and projects.</p>
-        </div>
-      </div>
-
+      <div class="photo-badge">BSIS Student</div>
     </div>
-  </section>
+    <input type="file" id="photo-input" accept="image/*"/>
+  </div>
+</section>
 
-  <hr class="divider" />
-
-  <!-- EDUCATION -->
-  <section id="education">
-    <p class="section-label">Education</p>
-    <div class="edu-card">
-      <div class="edu-icon">🎓</div>
-      <div>
-        <div class="edu-school">Caraga State University</div>
-        <div class="edu-course">Bachelor of Science in Information System</div>
-        <span class="edu-year">3rd Year — Present</span>
-      </div>
+<section id="about">
+  <div class="section-eyebrow">About</div>
+  <h2>A little <em>about me</em></h2>
+  <div class="about-grid">
+    <div class="about-text fade-up">
+      <p>I am a Bachelor of Science in Information Systems student at Caraga State University Main Campus in Butuan City. I am passionate about solving real-world problems through thoughtful systems design, data management, and emerging technologies.</p>
+      <p>My academic work spans database management, system analysis, and research on how artificial intelligence can be governed responsibly in academic settings. I enjoy collaborating with peers and finding ways data-driven solutions can create meaningful community impact.</p>
     </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <p class="section-label">Contact</p>
-    <div class="contact-grid">
-      <div class="contact-card">
-        <div class="contact-icon">✉️</div>
-        <div>
-          <div class="contact-label">Email</div>
-          <div class="contact-val"><a href="mailto:leamiedomingo@gmail.com">leamiedomingo@gmail.com</a></div>
-        </div>
-      </div>
-      <div class="contact-card">
-        <div class="contact-icon">📱</div>
-        <div>
-          <div class="contact-label">Phone</div>
-          <div class="contact-val">09276332937</div>
-        </div>
-      </div>
-      <div class="contact-card">
-        <div class="contact-icon">💻</div>
-        <div>
-          <div class="contact-label">GitHub</div>
-          <div class="contact-val"><a href="https://github.com/leamiedomingo" target="_blank">leamiedomingo</a></div>
-        </div>
-      </div>
-      <div class="contact-card">
-        <div class="contact-icon">📘</div>
-        <div>
-          <div class="contact-label">Facebook</div>
-          <div class="contact-val"><a href="https://www.facebook.com/JustLeamie/" target="_blank">JustLeamie</a></div>
-        </div>
-      </div>
+    <div class="details-list fade-up">
+      <div class="detail-row"><span class="detail-k">University</span><span class="detail-v">Caraga State University</span></div>
+      <div class="detail-row"><span class="detail-k">Degree</span><span class="detail-v">BS Information Systems</span></div>
+      <div class="detail-row"><span class="detail-k">Campus</span><span class="detail-v">Main Campus, Butuan City</span></div>
+      <div class="detail-row"><span class="detail-k">Interests</span><span class="detail-v">Database Systems · AI Governance · Systems Analysis</span></div>
+      <div class="detail-row"><span class="detail-k">Available For</span><span class="detail-v">Internship · Collaboration · Research</span></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer>
-    &copy; 2026 Leamie S. Domingo &middot; Information System Student &middot; Caraga State University
-  </footer>
+<section id="skills" class="skills-bg">
+  <div class="section-eyebrow">Skills</div>
+  <h2>What I <em>work with</em></h2>
+  <div class="skills-grid fade-up">
+    <div class="skill-card"><div class="skill-icon">🗄️</div><div class="skill-name">Database Management</div><div class="tags"><span class="tag">SQL</span><span class="tag">MySQL</span><span class="tag">ERD</span><span class="tag">3NF</span></div></div>
+    <div class="skill-card"><div class="skill-icon">💻</div><div class="skill-name">Programming</div><div class="tags"><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">HTML/CSS</span></div></div>
+    <div class="skill-card"><div class="skill-icon">📊</div><div class="skill-name">Systems Analysis</div><div class="tags"><span class="tag">System Design</span><span class="tag">Documentation</span><span class="tag">UML</span></div></div>
+    <div class="skill-card"><div class="skill-icon">🔍</div><div class="skill-name">Research</div><div class="tags"><span class="tag">Quantitative</span><span class="tag">Survey Design</span><span class="tag">UTAUT</span></div></div>
+    <div class="skill-card"><div class="skill-icon">🤖</div><div class="skill-name">AI & Technology</div><div class="tags"><span class="tag">AI Governance</span><span class="tag">ChatGPT</span><span class="tag">Digital Literacy</span></div></div>
+    <div class="skill-card"><div class="skill-icon">🛠️</div><div class="skill-name">Dev Tools</div><div class="tags"><span class="tag">VS Code</span><span class="tag">Git/GitHub</span><span class="tag">Vercel</span></div></div>
+  </div>
+</section>
 
-  <script>
-    /* Profile photo */
-    function handleProfilePhoto(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const img = document.getElementById('avatar-img');
-        const initials = document.getElementById('avatar-initials');
-        img.src = e.target.result;
-        img.style.display = 'block';
-        initials.style.display = 'none';
-      };
-      reader.readAsDataURL(file);
-    }
+<section id="projects">
+  <div class="section-eyebrow">Projects</div>
+  <h2>Project <em>Gallery</em></h2>
+  <div class="gallery-controls">
+    <div class="gallery-filters" id="filters">
+      <button class="filter-btn active" data-cat="all">All</button>
+      <button class="filter-btn" data-cat="Database">Database</button>
+      <button class="filter-btn" data-cat="Research">Research</button>
+      <button class="filter-btn" data-cat="Web">Web</button>
+      <button class="filter-btn" data-cat="Other">Other</button>
+    </div>
+    <button class="add-project-btn" id="add-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Add Project
+    </button>
+  </div>
+  <div class="gallery-grid" id="gallery-grid"></div>
+</section>
 
-    /* Project photo - trigger file input */
-    function triggerProjectPhoto(inputId) {
-      document.getElementById(inputId).click();
-    }
+<section id="contact" class="contact-section">
+  <div class="section-eyebrow">Contact</div>
+  <h2>Let's <em>connect</em></h2>
+  <div class="contact-grid">
+    <div class="contact-text fade-up">
+      <p>I am open to internship opportunities, academic collaborations, and research projects. Feel free to reach out through any of the channels below.</p>
+      <p>Whether you want to discuss a project, an idea, or just connect — I would love to hear from you.</p>
+    </div>
+    <div class="contact-links fade-up">
+      <a href="mailto:your.email@carsu.edu.ph" class="contact-row"><span class="contact-k">Email</span><span class="contact-v">your.email@carsu.edu.ph</span></a>
+      <a href="https://github.com/yourusername" target="_blank" class="contact-row"><span class="contact-k">GitHub</span><span class="contact-v">github.com/yourusername</span></a>
+      <a href="https://linkedin.com/in/yourusername" target="_blank" class="contact-row"><span class="contact-k">LinkedIn</span><span class="contact-v">linkedin.com/in/yourusername</span></a>
+      <div class="contact-row"><span class="contact-k">Location</span><span class="contact-v">Butuan City, Agusan del Norte</span></div>
+    </div>
+  </div>
+</section>
 
-    /* Project photo - handle upload */
-    function handleProjectPhoto(event, imgId, placeholderId) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const img = document.getElementById(imgId);
-        const placeholder = document.getElementById(placeholderId);
-        img.src = e.target.result;
-        img.style.display = 'block';
-        placeholder.style.display = 'none';
-      };
-      reader.readAsDataURL(file);
-    }
-  </script>
+<footer>
+  <span class="footer-copy">© 2025 Leamie S. Domingo. All rights reserved.</span>
+  <span class="footer-sig">Leamie S. Domingo</span>
+</footer>
 
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Add Project</div>
+      <button class="modal-close" id="modal-close">×</button>
+    </div>
+    <label>Project Title
+      <input type="text" id="f-title" placeholder="e.g. Payroll Management System"/>
+    </label>
+    <label>Description
+      <textarea id="f-desc" placeholder="Brief description of the project..."></textarea>
+    </label>
+    <div class="modal-row">
+      <label>Category
+        <select id="f-cat">
+          <option value="Database">Database</option>
+          <option value="Research">Research</option>
+          <option value="Web">Web</option>
+          <option value="Other">Other</option>
+        </select>
+      </label>
+      <label>Project URL (optional)
+        <input type="url" id="f-url" placeholder="https://github.com/..."/>
+      </label>
+    </div>
+    <label>Technologies (comma-separated)
+      <input type="text" id="f-tech" placeholder="MySQL, SQL, ERD Design"/>
+    </label>
+    <label>Project Image (optional)
+      <div class="img-upload-area" id="img-upload-area" onclick="document.getElementById('proj-img-input').click()">
+        <img class="img-preview" id="img-preview" alt="preview"/>
+        <span id="img-upload-label">Click to upload a screenshot or image</span>
+      </div>
+      <input type="file" id="proj-img-input" accept="image/*"/>
+    </label>
+    <div class="modal-btns">
+      <button class="btn btn-ghost" id="modal-cancel">Cancel</button>
+      <button class="btn btn-dark" id="modal-save">Save Project</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const PHOTO_KEY='ld_profile_photo';
+const PROJECTS_KEY='ld_projects';
+const DEFAULT_PROJECTS=[
+  {id:'p1',title:'Corporate Payroll & Tax Compliance System',desc:'Full-stack database system with 8 normalized tables, privacy-compliant PII handling under RA 10173, indexed queries, and masked employee data view. Built for ITE 16 — Database Management Systems.',cat:'Database',tech:['MySQL','SQL DDL/DML','ERD','3NF','RA 10173'],url:'#',img:''},
+  {id:'p2',title:'AI Governance Readiness Research',desc:'Academic research manuscript studying AI governance readiness and ChatGPT usage practices in higher education, comparing faculty and students at CSU using a UTAUT framework adapted from Budhathoki et al. (2024).',cat:'Research',tech:['Quantitative Research','UTAUT','Likert Scale','Survey Design'],url:'#',img:''},
+  {id:'p3',title:'Personal Portfolio Website',desc:'A clean, minimal personal portfolio built from scratch using HTML, CSS, and JavaScript. Deployed via Vercel with version control through GitHub.',cat:'Web',tech:['HTML','CSS','JavaScript','GitHub','Vercel'],url:'#',img:''},
+];
+function loadProjects(){const r=localStorage.getItem(PROJECTS_KEY);return r?JSON.parse(r):DEFAULT_PROJECTS;}
+function saveProjects(a){localStorage.setItem(PROJECTS_KEY,JSON.stringify(a));}
+let projects=loadProjects();
+let currentFilter='all';
+let editingId=null;
+let pendingImgData='';
+
+// Profile photo
+const profileImg=document.getElementById('profile-img');
+const photoPlaceholder=document.getElementById('photo-placeholder');
+const photoInput=document.getElementById('photo-input');
+function applyPhoto(d){profileImg.src=d;profileImg.classList.add('visible');photoPlaceholder.style.display='none';}
+const sp=localStorage.getItem(PHOTO_KEY);
+if(sp)applyPhoto(sp);
+photoInput.addEventListener('change',e=>{
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{localStorage.setItem(PHOTO_KEY,ev.target.result);applyPhoto(ev.target.result);};
+  r.readAsDataURL(f);
+});
+
+// Render gallery
+function renderGallery(){
+  const grid=document.getElementById('gallery-grid');
+  const filtered=currentFilter==='all'?projects:projects.filter(p=>p.cat===currentFilter);
+  if(filtered.length===0){
+    grid.innerHTML='<div class="empty-gallery"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><p>No projects here yet — click <strong>Add Project</strong> to get started.</p></div>';
+    return;
+  }
+  grid.innerHTML=filtered.map(p=>{
+    const tech=(p.tech||[]).map(t=>`<span class="tech-tag">${t}</span>`).join('');
+    const img=p.img?`<img class="card-img" src="${p.img}" alt="${p.title}"/>`:`<div class="card-img-placeholder">${p.title.charAt(0)}</div>`;
+    return `<div class="project-card" data-id="${p.id}">${img}<div class="card-body"><div class="card-cat">${p.cat}</div><div class="card-title">${p.title}</div><div class="card-desc">${p.desc}</div><div class="card-tech">${tech}</div></div><div class="card-footer">${p.url&&p.url!=='#'?`<a href="${p.url}" target="_blank" class="card-link">View Project →</a>`:'<span></span>'}<div class="card-actions"><button class="icon-btn" title="Edit" onclick="openEdit('${p.id}')"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="icon-btn del" title="Delete" onclick="deleteProject('${p.id}')"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg></button></div></div></div>`;
+  }).join('');
+}
+
+// Filters
+document.getElementById('filters').addEventListener('click',e=>{
+  const btn=e.target.closest('.filter-btn');if(!btn)return;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');currentFilter=btn.dataset.cat;renderGallery();
+});
+
+// Modal
+const modal=document.getElementById('modal');
+function openModal(){modal.classList.add('open');}
+function closeModal(){
+  modal.classList.remove('open');editingId=null;pendingImgData='';
+  document.getElementById('f-title').value='';document.getElementById('f-desc').value='';
+  document.getElementById('f-cat').value='Database';document.getElementById('f-url').value='';
+  document.getElementById('f-tech').value='';
+  document.getElementById('img-preview').classList.remove('visible');
+  document.getElementById('img-upload-label').style.display='';
+}
+document.getElementById('add-btn').onclick=()=>{editingId=null;document.getElementById('modal-title').textContent='Add Project';openModal();};
+document.getElementById('modal-close').onclick=closeModal;
+document.getElementById('modal-cancel').onclick=closeModal;
+modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+
+function openEdit(id){
+  const p=projects.find(x=>x.id===id);if(!p)return;
+  editingId=id;document.getElementById('modal-title').textContent='Edit Project';
+  document.getElementById('f-title').value=p.title;
+  document.getElementById('f-desc').value=p.desc;
+  document.getElementById('f-cat').value=p.cat;
+  document.getElementById('f-url').value=p.url||'';
+  document.getElementById('f-tech').value=(p.tech||[]).join(', ');
+  pendingImgData=p.img||'';
+  if(p.img){document.getElementById('img-preview').src=p.img;document.getElementById('img-preview').classList.add('visible');document.getElementById('img-upload-label').style.display='none';}
+  openModal();
+}
+
+function deleteProject(id){
+  if(!confirm('Delete this project?'))return;
+  projects=projects.filter(p=>p.id!==id);saveProjects(projects);renderGallery();
+}
+
+document.getElementById('proj-img-input').addEventListener('change',e=>{
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{pendingImgData=ev.target.result;document.getElementById('img-preview').src=pendingImgData;document.getElementById('img-preview').classList.add('visible');document.getElementById('img-upload-label').style.display='none';};
+  r.readAsDataURL(f);
+});
+
+document.getElementById('modal-save').onclick=()=>{
+  const title=document.getElementById('f-title').value.trim();
+  if(!title){alert('Please enter a project title.');return;}
+  const tech=document.getElementById('f-tech').value.split(',').map(t=>t.trim()).filter(Boolean);
+  if(editingId){
+    const idx=projects.findIndex(p=>p.id===editingId);
+    if(idx!==-1)projects[idx]={...projects[idx],title,desc:document.getElementById('f-desc').value.trim(),cat:document.getElementById('f-cat').value,url:document.getElementById('f-url').value.trim()||'#',tech,img:pendingImgData};
+  } else {
+    projects.push({id:'p'+Date.now(),title,desc:document.getElementById('f-desc').value.trim(),cat:document.getElementById('f-cat').value,url:document.getElementById('f-url').value.trim()||'#',tech,img:pendingImgData});
+  }
+  saveProjects(projects);renderGallery();closeModal();
+};
+
+// Scroll fade
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+renderGallery();
+</script>
 </body>
 </html>
